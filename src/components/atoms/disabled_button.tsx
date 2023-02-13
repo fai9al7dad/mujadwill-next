@@ -13,8 +13,8 @@ export function DisabledButton(
 ) {
   return (
     <button
-      onClick={props.disabled ? null : onClick}
-      className={`py-3 px-10  bg-white border border-gray-300 text-gray-900 text-center font-bold rounded-lg  ${className} `}
+      disabled={true}
+      className={`py-3 px-10  bg-white border border-gray-300 text-gray-900 text-center font-bold rounded-lg hover:cursor-not-allowed ${className} `}
       {...props}
     >
       {props.disabled && "disabled"}

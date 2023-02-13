@@ -1,8 +1,30 @@
+import { ChangeEvent } from "react";
+import { toast } from "react-toastify";
 import { DisabledButton } from "../../components/atoms/disabled_button";
 import { PrimaryButton } from "../../components/atoms/primary_button";
 import { EduAffairsLayout } from "../../components/layouts/edu_affairs_layout";
+import axios from "axios";
+import { importsStatus } from "../../components/types/types";
+import { useUpload } from "../../components/hooks/useUpload";
 
-const EduAffairsIndex = () => {
+export async function getServerSideProps() {
+  const importsStatus = await axios.get(
+    "http://localhost:8000/api/get-imports-status/"
+  );
+  return {
+    props: {
+      importsStatus: importsStatus.data,
+    }, // will be passed to the page component as props
+  };
+}
+
+const EduAffairsIndex = ({
+  importsStatus,
+}: {
+  importsStatus: importsStatus;
+}) => {
+  const { uploadFile } = useUpload("import-sections/");
+
   return (
     <EduAffairsLayout>
       <div>
@@ -11,19 +33,15 @@ const EduAffairsIndex = () => {
         </h1>
         <div className="mt-10">
           <div className="grid grid-cols-2 border border-gray-200 rounded-lg divide-y divide-y-reverse divide-x divide-x-reverse">
-            <div className="text-lg text-center py-5 border-b">
+            <div className="text-lg text-center py-5 border-b flex items-center justify-center">
               الفصل الدراسي الأول
             </div>
             <div className="py-5 flex items-center justify-center">
-              <PrimaryButton className="w-2/4">نشر</PrimaryButton>
-            </div>
-            <div className="text-lg text-center py-5">الفصل الدراسي الثاني</div>
-            <div className="py-5 flex items-center justify-center">
-              <DisabledButton className="w-2/4">لم يُنشئ بعد</DisabledButton>
-            </div>
-            <div className="text-lg text-center py-5">الفصل الدراسي الثالث</div>
-            <div className="py-5 flex items-center justify-center">
-              <DisabledButton className="w-2/4">لم يُنشئ بعد</DisabledButton>
+              {/* {importsStatus.sections ? (
+                <DisabledButton>تم رفع الشعب</DisabledButton>
+              ) : (
+                )} */}
+              <input type="file" onChange={uploadFile} accept=".xlsx" />
             </div>
           </div>
         </div>
