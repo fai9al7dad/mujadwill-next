@@ -8,7 +8,7 @@ import HoverToolTip from "../../components/atoms/hover_tooltip";
 import { useEffect } from "react";
 export async function getServerSideProps() {
   const importsStatus = await axios.get(
-    "http://127.0.0.1:8000/api/get-imports-status/"
+    "http://192.168.1.37:8000/api/get-imports-status/"
   );
   return {
     props: {

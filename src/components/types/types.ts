@@ -8,6 +8,7 @@ export type instructor = {
   name: string;
   max_hours: number;
   email: string;
+  has_preference: boolean;
 };
 
 export type Schedule = {

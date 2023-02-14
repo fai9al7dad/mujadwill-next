@@ -7,7 +7,7 @@ export const useSchedule = () => {
   const generateSchedule = async () => {
     const generateReq = async () => {
       try {
-        await axios.post("http://localhost:8000/api/generate-schedules/");
+        await axios.post("http://192.168.1.37:8000/api/generate-schedules/");
         router.push("/hod/semester/1/schedule/result");
       } catch (err) {
         console.log(err);
@@ -25,7 +25,25 @@ export const useSchedule = () => {
   const exportSchedule = async (id: number) => {
     const exportReq = async () => {
       try {
-        await axios.get(`http://localhost:8000/api/get_schedule/${id}/`);
+        const res = await axios.get(
+          `http://192.168.1.37:8000/api/get_schedule/${id}/`
+        );
+
+        var element = document.createElement("a");
+        element.setAttribute(
+          "href",
+          "data:text/plain;charset=utf-8," + encodeURIComponent(res.data)
+        );
+        element.setAttribute("download", `schedule_${id}.csv`);
+
+        element.style.display = "none";
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
+
+        // window.open(
       } catch (err) {
         console.log(err);
         throw err;

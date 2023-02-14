@@ -4,7 +4,18 @@ import axios from "axios";
 import { PrimaryButton } from "../../../../../components/atoms/primary_button";
 import { HeadOfDepartmentsLayout } from "../../../../../components/layouts/hod_layout";
 export async function getServerSideProps() {
-  const schedules = await axios.get("http://127.0.0.1:8000/api/get-schedules/");
+  const schedules = await axios.get(
+    "http://192.168.1.37:8000/api/get-schedules/"
+  );
+
+  for (let i = 0; i < schedules.data.length; i++) {
+    const schedule = schedules.data[i];
+    const scheduleDetails = await axios.get(
+      `http://192.168.1.37:8000/api/get_schedule/${schedule.id}/`
+    );
+    schedule.schedule = scheduleDetails.data;
+  }
+
   return {
     props: {
       schedules: schedules.data,
@@ -13,6 +24,7 @@ export async function getServerSideProps() {
 }
 const Result = ({ schedules }: { schedules: Schedule[] }) => {
   const { generateSchedule } = useSchedule();
+  console.log(schedules);
 
   return (
     <HeadOfDepartmentsLayout
@@ -53,6 +65,7 @@ const Schedule = ({
         <div className="text-lg font-bold ">
           الفتنس {(schedule.fitness * 100).toPrecision(2)}%
         </div>
+        {/* <a href={schedule.schedule.downloadurl} download target="_blank"> */}
         <PrimaryButton
           className="text-xs py-1.5"
           onClick={() => {
@@ -61,11 +74,15 @@ const Schedule = ({
         >
           تصدير
         </PrimaryButton>
+        {/* </a> */}
       </div>
       <div className="bg-white border border-gray-200 rounded-lg ">
-        <ScheduleItem right="نسبة التعارض" left={schedule.conflict_fitness} />
         <ScheduleItem
-          right="نسبة الأربعة أيام"
+          right="نسبة التعارض في الوقت"
+          left={schedule.conflict_fitness}
+        />
+        <ScheduleItem
+          right="نسبة الأربعة أيام أو أقل"
           left={schedule.fourDays_fitness}
         />
         <ScheduleItem
@@ -83,7 +100,7 @@ const ScheduleItem = ({ right, left }: { right: string; left: number }) => {
   return (
     <div className="flex items-center justify-between p-5 text-xs border-b border-gray-200">
       <div>{right}</div>
-      <div>{output.toPrecision(2)}%</div>
+      <div>{output.toPrecision(3)}%</div>
     </div>
   );
 };

@@ -4,7 +4,7 @@ import { HeadOfDepartmentsLayout } from "../../../../components/layouts/hod_layo
 import axios from "axios";
 import { instructor } from "../../../../components/types/types";
 export async function getServerSideProps() {
-  const res = await axios.get("http://127.0.0.1:8000/api/get-instructors/");
+  const res = await axios.get("http://192.168.1.37:8000/api/get-instructors/");
   return {
     props: {
       instructors: res.data,
@@ -13,6 +13,8 @@ export async function getServerSideProps() {
 }
 
 const Instructors = ({ instructors }: { instructors: instructor[] }) => {
+  console.log({ instructors });
+
   return (
     <HeadOfDepartmentsLayout
       backLink={
@@ -25,6 +27,7 @@ const Instructors = ({ instructors }: { instructors: instructor[] }) => {
         <Instructor
           name={instructor.name}
           email={"1945069@uj.edu.sa"}
+          hasPrefernce={instructor.has_preference}
           key={instructor.id}
         />
       ))}
@@ -32,11 +35,26 @@ const Instructors = ({ instructors }: { instructors: instructor[] }) => {
   );
 };
 
-const Instructor = ({ name, email }: { name: string; email: string }) => {
+const Instructor = ({
+  name,
+  email,
+  hasPrefernce,
+}: {
+  name: string;
+  email: string;
+  hasPrefernce: boolean;
+}) => {
   return (
-    <div className="py-5 border-b border-gray-200 ">
-      <div className="text-2xl font-bold">{name}</div>
-      <div className="mt-2">{email}</div>
+    <div className="py-5 border-b border-gray-200 flex items-center justify-between">
+      <div>
+        <div className="text-2xl font-bold">{name}</div>
+        <div className="mt-2">{email}</div>
+      </div>
+      <div className="div">
+        {hasPrefernce ? (
+          <div className="text-green-500">أدخل تفضيلاته</div>
+        ) : null}
+      </div>
     </div>
   );
 };

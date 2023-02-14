@@ -9,7 +9,7 @@ import { useUpload } from "../../components/hooks/useUpload";
 
 export async function getServerSideProps() {
   const importsStatus = await axios.get(
-    "http://localhost:8000/api/get-imports-status/"
+    "http://192.168.1.37:8000/api/get-imports-status/"
   );
   return {
     props: {

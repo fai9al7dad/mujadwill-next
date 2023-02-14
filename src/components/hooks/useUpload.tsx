@@ -10,7 +10,7 @@ export const useUpload = (endpoint: string) => {
       const formData = new FormData();
       formData.append("file", file);
       axios
-        .post(`http://localhost:8000/api/${endpoint}`, formData, {
+        .post(`http://192.168.1.37:8000/api/${endpoint}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

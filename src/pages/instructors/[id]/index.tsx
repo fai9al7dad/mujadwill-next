@@ -5,7 +5,26 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import InstructorsLayout from "../../../components/layouts/instructors_layout";
 
-const Instructor = () => {
+export async function getServerSideProps(context: any) {
+  // get last part of url
+  const { id } = context.query;
+
+  const res = await axios.get(
+    `http://192.168.1.37:8000/api/get-instructor/${id}`
+  );
+  return {
+    props: {
+      instructor: res.data,
+    }, // will be passed to the page component as props
+  };
+}
+
+type IInstructor = {
+  name: string;
+  email: string;
+};
+
+const Instructor = ({ instructor }: { instructor: IInstructor }) => {
   const router = useRouter();
   const [formData, setFormData] = useState<any>({
     preffered_subjects: [],
@@ -86,7 +105,7 @@ const Instructor = () => {
     <InstructorsLayout
       header={
         <div>
-          {/* <div className="text-4xl mb-2 font-bold">مرحبا محمد خالد</div> */}
+          <div className="text-4xl mb-2 font-bold">مرحبا {instructor.name}</div>
           <div className="text-md text-gray-500  ">
             نرجو منك ادخال تفضيلاتك أدناه
           </div>
