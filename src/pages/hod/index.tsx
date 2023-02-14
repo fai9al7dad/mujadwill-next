@@ -24,9 +24,43 @@ const HodIndex = ({ importsStatus }: { importsStatus: importsStatus }) => {
     <div className="flex flex-col items-center justify-center min-h-screen ">
       <div className="w-2/4">
         <div className="">
-          <h1 className="text-sm text-gray-500 mb-2">
-            رفع أعضاء هيئة التدريس .. ملاحظة: يجب رفع ملف بصيغة xlsx
-          </h1>
+          <div className="flex items-end justify-between mb-5">
+            <p className="text-sm text-gray-500 mb-2">
+              رفع أعضاء هيئة التدريس .. ملاحظة: يجب رفع ملف بصيغة .xlsx
+              <HoverToolTip
+                content={
+                  <div>
+                    <div className="text-xs mb-2">مثال:</div>
+                    <table className="">
+                      <thead>
+                        <tr>
+                          <th className="border  border-gray-300 p-2">
+                            اسم المدرس
+                          </th>
+                          <th className="border border-gray-300 p-2">
+                            الحد الأقصى لعدد الساعات
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td className="border border-gray-300 p-2">
+                            محمد عبدالله
+                          </td>
+                          <td className="border border-gray-300 p-2">14</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                }
+              >
+                <span className="p-5 bg-white shadow py-1 rounded-lg border border-gray-100 mr-2">
+                  ؟
+                </span>
+              </HoverToolTip>
+            </p>
+          </div>
+
           <div className="grid grid-cols-3 border border-gray-200 rounded-lg divide-y divide-y-reverse divide-x divide-x-reverse">
             <div className="text-lg text-center py-5 border-b flex items-center justify-center">
               الفصل الدراسي الأول
