@@ -25,7 +25,7 @@ const HodIndex = ({ importsStatus }: { importsStatus: importsStatus }) => {
       <div className="w-2/4">
         <div className="">
           <div className="flex items-end justify-between mb-5">
-            <p className="text-sm text-gray-500 mb-2">
+            <div className="text-sm text-gray-500 mb-2">
               رفع أعضاء هيئة التدريس .. ملاحظة: يجب رفع ملف بصيغة .xlsx
               <HoverToolTip
                 content={
@@ -54,11 +54,11 @@ const HodIndex = ({ importsStatus }: { importsStatus: importsStatus }) => {
                   </div>
                 }
               >
-                <span className="p-5 bg-white shadow py-1 rounded-lg border border-gray-100 mr-2">
+                <div className="p-5 bg-white shadow py-1 rounded-lg border border-gray-100 mr-2">
                   ؟
-                </span>
+                </div>
               </HoverToolTip>
-            </p>
+            </div>
           </div>
 
           <div className="grid grid-cols-3 border border-gray-200 rounded-lg divide-y divide-y-reverse divide-x divide-x-reverse">
