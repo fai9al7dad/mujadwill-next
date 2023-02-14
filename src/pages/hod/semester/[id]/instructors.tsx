@@ -4,7 +4,7 @@ import { HeadOfDepartmentsLayout } from "../../../../components/layouts/hod_layo
 import axios from "axios";
 import { instructor } from "../../../../components/types/types";
 export async function getServerSideProps() {
-  const res = await axios.get("http://localhost:8000/api/get-instructors/");
+  const res = await axios.get("http://127.0.0.1:8000/api/get-instructors/");
   return {
     props: {
       instructors: res.data,

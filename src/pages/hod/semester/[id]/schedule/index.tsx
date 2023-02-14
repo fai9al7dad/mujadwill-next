@@ -5,10 +5,11 @@ import axios from "axios";
 import { importsStatus } from "../../../../../components/types/types";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { useSchedule } from "@/components/hooks/useSchedule";
 
 export async function getServerSideProps() {
   const importsStatus = await axios.get(
-    "http://localhost:8000/api/get-imports-status/"
+    "http://127.0.0.1:8000/api/get-imports-status/"
   );
   return {
     props: {
@@ -17,24 +18,7 @@ export async function getServerSideProps() {
   };
 }
 const Shedule = ({ importsStatus }: { importsStatus: importsStatus }) => {
-  const router = useRouter();
-  const generateSchedule = async () => {
-    const generateReq = async () => {
-      try {
-        await axios.post("http://localhost:8000/api/generate-schedules/");
-        router.push("/hod/semester/1/schedule/result");
-      } catch (err) {
-        console.log(err);
-        throw err;
-      }
-    };
-
-    await toast.promise(generateReq(), {
-      pending: "جار الإنشاء...",
-      success: "تم الإنشاء بنجاح 👍",
-      error: "حدث خطأ أثناء الإنشاء 😔",
-    });
-  };
+  const { generateSchedule } = useSchedule();
 
   return (
     <HeadOfDepartmentsLayout

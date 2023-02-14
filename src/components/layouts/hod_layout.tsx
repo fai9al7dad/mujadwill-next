@@ -28,10 +28,7 @@ export const HeadOfDepartmentsLayout = ({
               <ChevronRight />
               <div className="mr-1 text-lg">{backLink}</div>
             </div>
-            <div className="text-3xl font-bold">مرحبا سلطان الحارثي</div>
-            <div className="text-lg text-gray-500 mt-2">
-              رئيس قسم هندسة البرمجيات
-            </div>
+            <div className="text-3xl font-bold">مرحبا رئيس القسم</div>
           </div>
           <div className="flex ">
             <Link href={`/hod/semester/${router.query.id}/instructors`}>

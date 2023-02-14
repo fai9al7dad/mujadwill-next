@@ -18,6 +18,10 @@ export const useUpload = (endpoint: string) => {
         .then((res) => {
           console.log(res);
           toast.success("تم رفع الملف بنجاح");
+          // rerender the page after 2 seconds
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
         })
         .catch((err) => {
           console.log(err);
